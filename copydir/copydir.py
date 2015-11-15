@@ -1,10 +1,10 @@
 #################################################################################
-# DESC	: copy directory by re-building, not copying data. when you want to copy
-#		  a very big size directory which exists in remote network, and you dont
-#		  care about what the data in the direcotry is, you just want to simulate
-#		  the directory structure and size, then you neednt to transfer by network. 
+# DESC  : copy directory by re-building, not copying data. when you want to copy
+#         a very big size directory which exists in remote network, and you dont
+#         care about what the data in the direcotry is, you just want to simulate
+#         the directory structure and size, then you neednt to transfer by network. 
 # AUTHOR: Teck
-# DATE	: 2015/11/08
+# DATE  : 2015/11/08
 #################################################################################
 import pickle, getopt, sys, os
 from enum import Enum
@@ -12,8 +12,7 @@ from enum import Enum
 
 #--------------------------------------------------------------------------------
 
-# Comment print flag
-print_comment = False
+print_trace = False # whether print trace info
 
 
 copy_progressbar = None
@@ -75,17 +74,17 @@ class OperType(Enum):
 Print comment according print flag
 '''
 def PrintComment(comment):
-	if print_comment:
+	if print_trace:
 		print(comment)
 
 def ShowCopyProgress():
 	global current_copy_items, total_copy_items
-	if copy_progressbar is not None and not print_comment:
+	if copy_progressbar is not None and not print_trace:
 		copy_progressbar(current_copy_items * 100 // total_copy_items)
 
 def ShowBuildProgress():
 	global current_build_items, total_build_items
-	if build_progressbar is not None and not print_comment:
+	if build_progressbar is not None and not print_trace:
 		build_progessbar(current_build_items * 100 // total_build_items)
 
 #--------------------------------------------------------------------------------
@@ -119,7 +118,7 @@ Help info
 def Usage():
 	print("copydir.py {-c -s src_dir | -b -d dst_dir | -h} [-p pickle_file]")
 	print("-h: help message")
-	print("-m: whether to print comment, it will turn off progress bar display")
+	print("-t: whether to print trace info")
 	print("-c: copy directory structure to pickle file")
 	print("-b: build directory structure from pickle file")
 	print("-s: source direcotry to be copied")
@@ -209,8 +208,8 @@ def GetCommandLinePara():
 	for o, a in opts:
 		if o == '-h':
 			Usage()
-		elif o == '-m':
-			print_comment = True
+		elif o == '-t':
+			print_trace = True
 		elif o == '-c':
 			oper_type = OperType.COPY
 		elif o == '-b':
