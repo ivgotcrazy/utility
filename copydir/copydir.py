@@ -85,7 +85,7 @@ def ShowCopyProgress():
 def ShowBuildProgress():
 	global current_build_items, total_build_items
 	if build_progressbar is not None and not print_trace:
-		build_progessbar(current_build_items * 100 // total_build_items)
+		build_progressbar(current_build_items * 100 // total_build_items)
 
 #--------------------------------------------------------------------------------
 
