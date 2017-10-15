@@ -21,7 +21,7 @@ def PrintHelp():
 
 def IsValidArgv(argv):
 	if len(argv) == 0:
-		argv.append("192.168.5.177:5000")
+		argv.append("192.168.5.177:5000") # default argument
 		return True
 
 	if len(argv) != 1:
@@ -33,11 +33,15 @@ def IsValidArgv(argv):
 	return True
 	
 def Main(argv):
+	# Argument validation
 	if not IsValidArgv(argv):
 		PrintHelp()
 		sys.exit()
 
+	# Parse arguments
 	[ip, port] = argv[0].split(":")
+
+	# Make catalog request
 	try:
 		http_client = httplib.HTTPConnection(ip, int(port), timeout=5)
 		http_client.request('GET', '/v2/_catalog')
@@ -46,8 +50,10 @@ def Main(argv):
 		print e
 		sys.exit()
 
+	# Parse json format response
 	s = json.loads(catalog_resp.read())
 
+	# Print query result
 	print("----------------------------------------------------------")
 	print("%-36s\t%s" % ("Repository", "Tag"))
 	print("----------------------------------------------------------")
