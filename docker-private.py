@@ -48,11 +48,15 @@ def Main(argv):
 
 	s = json.loads(catalog_resp.read())
 
+	print("----------------------------------------------------------")
+	print("%-36s\t%s" % ("Repository", "Tag"))
+	print("----------------------------------------------------------")
 	for repo in s["repositories"]:
 		http_client.request('GET', '/v2/' + repo + '/tags/list')
 		repo_json = json.loads(http_client.getresponse().read())
 		for tag in repo_json["tags"]:
-			print("%s:%s" % (repo_json["name"], tag))
+			print("%-36s\t%s" % (repo_json["name"], tag))
+	print("----------------------------------------------------------")
 
 if __name__ == "__main__":
 	Main(sys.argv[1:])
