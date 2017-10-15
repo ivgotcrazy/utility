@@ -3,13 +3,20 @@
 import sys, httplib, json
 
 def PrintHelp():
-	print('''
-Description:
-	This script is used to get all repositories from private registry.
-Usage: 
-	docker-pr registry-ip:registry-port''')
+	print('''#######################################################################
+[Desc]:
+  This script is used to get all repositories from private registry.
+[Usage]: 
+  docker-pr registry-ip:registry-port
+[Note]:
+  192.168.5.177:5000 will be used if supply no argument.
+#######################################################################''')
 
 def IsValidArgv(argv):
+	if len(argv) == 0:
+		argv.append("192.168.5.177:5000")
+		return True
+
 	if len(argv) != 1:
 		return False
 
