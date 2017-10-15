@@ -1,16 +1,23 @@
 #!/usr/bin/python
+#################################################################################
+# DESC  : This script is used to help searching repositories from private docker
+#         registry.
+# AUTHOR: Teck
+# DATE  : 2017/10/15
+#################################################################################
 
 import sys, httplib, json
 
 def PrintHelp():
-	print('''#######################################################################
+	print('''#####################################################################
 [Desc]:
-  This script is used to get all repositories from private registry.
+  This script is used to help searching repositories from private
+  docker registry.
 [Usage]: 
   docker-pr registry-ip:registry-port
 [Note]:
   192.168.5.177:5000 will be used if supply no argument.
-#######################################################################''')
+#####################################################################''')
 
 def IsValidArgv(argv):
 	if len(argv) == 0:
